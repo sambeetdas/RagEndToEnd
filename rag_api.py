@@ -3,7 +3,6 @@ from pydantic import BaseModel
 from rag_pipeline import RAGPipeline
 import os   
 
-
 class RequestModel(BaseModel):
     question: str
 
@@ -21,6 +20,6 @@ async def create_item(model: RequestModel):
         collection_name=COLLECTION_NAME,
         embedding_model = EMBEDDING_MODEL
     )
-    response = await rag.get_answer(model.question, limit=3)
+    response = await rag.search_similar_documents(model.question, limit=3)
     return response
 
