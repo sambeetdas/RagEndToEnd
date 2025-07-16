@@ -374,11 +374,12 @@ class RAGPipeline:
         # Generate embedding for query
         query_embedding = self.generate_embeddings([query])[0]
         
+        vector_index_name = "rag_search_index"
         # Perform vector search
         pipeline = [
             {
                 "$vectorSearch": {
-                    "index": "vector_index",
+                    "index": vector_index_name,
                     "path": "embedding",
                     "queryVector": query_embedding,
                     "numCandidates": limit * 10,
